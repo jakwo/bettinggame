@@ -1,0 +1,28 @@
+<div class="container" style="margin-top: 15px;">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed"
+                    type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a [routerLink]="['Overview']">Übersicht</a></li>
+                    <li><a [routerLink]="['Standings']">Punktestand</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="btn btn-link" *ngIf="!loggedIn()" (click)="login()">Einloggen</a></li>
+                    <li><a class="btn btn-link" *ngIf="loggedIn()" (click)="logout()">Ausloggen</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <router-outlet></router-outlet>
+</div>

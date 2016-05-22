@@ -1,0 +1,25 @@
+table {
+    width: 100%
+}
+
+table tbody {
+    border-top: 1px solid #999;
+}
+
+td, th {
+    /*border:  1px solid #999;*/
+    padding: 0.5rem;
+}
+
+.user {
+    font-style: italic;
+}
+
+.flag-icon {
+    border:  1px solid #999;
+    font-size: 35px;
+}
+
+.completed{
+    background-color: lightgray;
+}

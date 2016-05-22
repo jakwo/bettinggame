@@ -1,0 +1,63 @@
+<div class="col-sm-12" style="padding-bottom: 10px" *ngIf="loggedIn()">
+  <button type="button" class="btn btn-primary btn-lg btn-block" (click)="showAll = !showAll">
+        <span *ngIf="!showAll">Alle Tipps anzeigen</span>
+        <span *ngIf="showAll">Nur eigene Tipps anzeigen</span>
+    </button>
+  <button type="button" class="btn btn-primary btn-lg btn-block" (click)="simulationMode = !simulationMode">
+        <span *ngIf="!simulationMode">Simulationsmodus aktivieren <span class="hidden-xs">(Ermöglicht die Eingabe von zukünftigen Ergebnissen)</span></span>
+        <span *ngIf="simulationMode">Simulationsmodus deaktivieren</span>
+    </button>
+</div>
+
+<div class="col-sm-6 col-xs-12" *ngFor="let match of matches">
+  <div class="panel panel-default">
+    <div class="panel-heading text-center">
+      <h3 class="panel-title">{{match.Date | deDate}}</h3>
+    </div>
+    <div class="panel-body" [ngClass]="{completed: match.MatchCompleted}">
+      <table>
+        <thead>
+          <tr>
+            <th class="text-right col-sm-3"><span class="hidden-xs">{{match.HomeTeam}}</span></th>
+            <th class="text-right col-sm-1"><span class="flag-icon flag-icon-{{match.HomeTeamFlag}}"></span></th>
+            <th class="text-right col-sm-2">
+              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.HomeGoals" (ngModelChange)="saveResult(match)"
+                type="number" min="0" max="9" />
+              <span *ngIf="!matchResultInputAllowed(match)">{{match.HomeGoals | score}}</span>
+            </th>
+            <th>:</th>
+            <th class="col-sm-2">
+              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.AwayGoals" (ngModelChange)="saveResult(match)"
+                type="number" min="0" max="9" />
+              <span *ngIf="!matchResultInputAllowed(match)">{{match.AwayGoals | score}}</span>
+            </th>
+            <th class="col-sm-1"><span class="flag-icon flag-icon-{{match.AwayTeamFlag}}"></span></th>
+            <th class="col-sm-3"><span class="hidden-xs ">{{match.AwayTeam}}</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tip of match.Tips | tipFilter:showAll">
+            <td class="text-right user" colspan="2">{{tip.User}} ({{getUserPoints(tip.User)}})</td>
+            <td class="text-right">
+              <input *ngIf="tipInputAllowed(match, tip)" class="form-control" type="number" [(ngModel)]="tip.HomeGoals"
+                (ngModelChange)="saveTip(tip)" min="0" max="9" />
+              <span *ngIf="!tipInputAllowed(match, tip)">{{tip.HomeGoals | score}}</span>
+            </td>
+            <td>:</td>
+            <td>
+              <input *ngIf="tipInputAllowed(match, tip)" class="form-control" type="number" [(ngModel)]="tip.AwayGoals"
+                (ngModelChange)="saveTip(tip)" min="0" max="9" />
+              <span *ngIf="!tipInputAllowed(match, tip)">{{tip.AwayGoals | score}}</span>
+            </td>
+            <td colspan="2">
+              <span *ngIf="getPoints(match, tip.User) === 3" class="label label-success">3</span>
+              <span *ngIf="getPoints(match, tip.User) === 2" class="label label-primary">2</span>
+              <span *ngIf="getPoints(match, tip.User) === 1" class="label label-info">1</span>
+              <span *ngIf="getPoints(match, tip.User) === 0" class="label label-default">0</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

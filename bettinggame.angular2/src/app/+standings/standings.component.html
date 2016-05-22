@@ -1,0 +1,22 @@
+<table class="table table-bordered table-striped table-responsive">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="col-sm-2 text-center">Gesamt</th>
+      <th class="col-sm-1 text-center"><span class="label label-success">3</span></th>
+      <th class="col-sm-1 text-center"><span class="label label-primary">2</span></th>
+      <th class="col-sm-1 text-center"><span class="label label-info">1</span></th>
+      <th class="col-sm-1 text-center"><span class="label label-default">0</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users" class="text-center">
+      <td class="text-left">{{user.Name}}</td>
+      <td>{{user.Points}}</td>
+      <td>{{user.Times3}}</td>
+      <td>{{user.Times2}}</td>
+      <td>{{user.Times1}}</td>
+      <td>{{user.Times0}}</td>
+    </tr>
+  </tbody>
+</table>
