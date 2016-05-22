@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using bettinggame.data;
 using bettinggame.data.Repositories;
 using bettinggame.api.Properties;
+using System.Security.Claims;
 
 namespace bettinggame.api
 {
@@ -47,17 +48,15 @@ namespace bettinggame.api
             services.AddScoped<IMatchesRepository, MatchesRepository>();
             services.AddScoped<ITipsRepository, TipsRepository>();
 
-            //services.Configure<Auth0Settings>(Configuration.GetSection("Auth0"));
             services.Configure<Auth0Settings>(options =>
             {
-                options.Domain = Configuration["Auth0:ClientId"];
-                options.ClientId = Configuration["Auth0:Domain"];
+                options.Domain = Configuration["Auth0:Domain"];
+                options.ClientId = Configuration["Auth0:ClientId"];
             });
 
+            services.AddCors();
 
             services.AddMvc();
-
-            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,9 +79,9 @@ namespace bettinggame.api
                                                   context => Task.FromResult(0),
                                           OnTokenValidated = context =>
                                           {
-                                              //var claimsIdentity = context.SecurityToken.Principal.Identity as ClaimsIdentity;
-                                              //claimsIdentity?.AddClaim(new Claim("id_token",
-                                              //    context.Request.Headers["Authorization"][0].Substring(context.AuthenticationTicket.AuthenticationScheme.Length + 1)));
+                                              var claimsIdentity = context.Ticket.Principal.Identity as ClaimsIdentity;
+                                              claimsIdentity?.AddClaim(new Claim("id_token",
+                                                  context.Request.Headers["Authorization"][0].Substring(context.Ticket.AuthenticationScheme.Length + 1)));
 
                                               // OPTIONAL: you can read/modify the claims that are populated based on the JWT
                                               // claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, claimsIdentity.FindFirst("name").Value));

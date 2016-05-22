@@ -8,8 +8,6 @@ const map: any = {
 
 /** User packages configuration. */
 const packages: any = {
-  'moment': 'vendor/moment/min/moment-with-locales.min.js',
-  'underscore': 'vendor/underscore/underscore-min.js'
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

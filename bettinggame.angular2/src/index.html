@@ -20,6 +20,9 @@
 <body>
   <angular2-client-app>Loading...</angular2-client-app>
 
+  <script src="vendor/moment/min/moment-with-locales.min.js"></script>
+  <script src="vendor/underscore/underscore-min.js"></script>
+
   {{#each scripts.polyfills}}
   <script src="{{.}}"></script>{{/each}}
   <script>

@@ -22,8 +22,6 @@ export class Auth0Service {
                     return;
                 }
 
-                console.log(profile);
-
                 localStorage.setItem('userName', profile.nickname);
                 localStorage.setItem('role', profile.roles[0]);
                 localStorage.setItem('id_token', token);
