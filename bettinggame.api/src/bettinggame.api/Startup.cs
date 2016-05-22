@@ -41,7 +41,7 @@ namespace bettinggame.api
                  .AddDbContext<BettingGameContext>(
                      options =>
                      {
-                         options.UseSqlServer(Configuration["Data:tourneytips_db:ConnectionString"],
+                         options.UseSqlServer(Configuration["Data:bettinggames:ConnectionString"],
                                 b => b.MigrationsAssembly("bettinggame.api"));
                      });
 

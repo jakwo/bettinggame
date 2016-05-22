@@ -32,7 +32,7 @@ export class MatchService {
     }
 
     public SaveTip(tip: Tip) {
-        this.authHttp.post(`${this.baseUrl}/matches/tips`,
+        this.authHttp.post(`${this.baseUrl}/tips`,
             JSON.stringify(tip),
             { headers: this.headers })
             .subscribe(() => { },
