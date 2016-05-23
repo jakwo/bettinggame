@@ -12,7 +12,7 @@ namespace bettinggame.api.Controllers
 {
     [Route("api/[controller]")]
     [Authorize(ActiveAuthenticationSchemes = "Bearer")]
-    public class MatchesController
+    public class MatchesController : Controller
     {
         private readonly IMatchesRepository _matchesRepository;
         private ITipsRepository _tipsRepository;
@@ -25,7 +25,7 @@ namespace bettinggame.api.Controllers
 
         // GET: api/matches
         [HttpGet("{userName}")]
-        public IEnumerable<MatchModel> GetForUser(string userName)
+        public IActionResult GetForUser(string userName)
         {
             // Create all tips for the user if it's his first login.
             var matches = _matchesRepository.GetAllMatches();
@@ -42,24 +42,34 @@ namespace bettinggame.api.Controllers
             }
 
             var matchModels = MapMatches(matches);
-            return matchModels;
+            return Ok(matchModels);
         }
 
         // POST: api/matches/
         [HttpPost]
-        public void UpdateResult([FromBody] MatchModel match)
+        public IActionResult UpdateResult([FromBody] MatchModel matchModel)
         {
-            _matchesRepository.UpdateMatchResult(match.Id, match.HomeGoals, match.AwayGoals);
+            var match = _matchesRepository.GetMatch(matchModel.Id);
+            if (match != null)
+            {
+                if (match.Date > DateTime.Now)
+                {
+                    return BadRequest("Das Spiel ist noch nicht gespielt..");
+                }
+            }
+
+            _matchesRepository.UpdateMatchResult(matchModel.Id, matchModel.HomeGoals, matchModel.AwayGoals);
+            return Ok();
         }
 
 
         // GET: api/matches
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<MatchModel> Get()
+        public IActionResult Get()
         {
             var matchModels = MapMatches(_matchesRepository.GetAllMatches());
-            return matchModels;
+            return Ok(matchModels);
         }
 
         private static IEnumerable<MatchModel> MapMatches(ICollection<Match> matches)
@@ -76,7 +86,7 @@ namespace bettinggame.api.Controllers
                                       AwayTeamFlag = GetFlag(match.AwayTeam),
                                       HomeTeam = GetCountry(match.HomeTeam),
                                       AwayTeam = GetCountry(match.AwayTeam),
-                                      MatchCompleted = match.Date < new DateTime(2016, 06, 15), //DateTime.Now,
+                                      MatchCompleted = match.Date < new DateTime(2016, 06, 12), //DateTime.Now,
                                       Tips = from tip in match.Tips
                                              orderby tip.User
                                              select

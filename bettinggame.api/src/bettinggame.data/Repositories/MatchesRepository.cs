@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using bettinggame.data.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,14 @@ namespace bettinggame.data.Repositories
                 .OrderBy(x => x.Date).ToList();
         }
 
+        public Match GetMatch(long id)
+        {
+            return _context.Matches.FirstOrDefault(x => x.Id == id);
+        }
+
         public void UpdateMatchResult(long id, int? homeGoals, int? awayGoals)
         {
-            var match = this._context.Matches.FirstOrDefault(x => x.Id == id);
+            var match = _context.Matches.FirstOrDefault(x => x.Id == id);
             if (match != null)
             {
                 match.AwayGoals = awayGoals;

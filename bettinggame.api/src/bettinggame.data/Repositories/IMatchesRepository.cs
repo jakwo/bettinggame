@@ -7,6 +7,8 @@ namespace bettinggame.data.Repositories
     {
         ICollection<Match> GetAllMatches();
 
+        Match GetMatch(long id);
+
         void UpdateMatchResult(long id, int? homeGoals, int? awayGoals);
     }
 }

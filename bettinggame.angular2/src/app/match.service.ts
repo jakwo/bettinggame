@@ -28,7 +28,7 @@ export class MatchService {
             JSON.stringify(match),
             { headers: this.headers })
             .subscribe(() => { },
-            err => console.log(err));
+            err => alert(err.text()));
     }
 
     public SaveTip(tip: Tip) {
@@ -36,7 +36,7 @@ export class MatchService {
             JSON.stringify(tip),
             { headers: this.headers })
             .subscribe(() => { },
-            err => console.log(err));
+            err => alert(err.text()));
     }
 
     public GetAll = (): Observable<Match[]> => {

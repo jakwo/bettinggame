@@ -32,14 +32,14 @@ export class OverviewComponent implements OnInit {
   ngOnInit() {
     this.userName = localStorage.getItem("userName");
     if (this.userName) {
-      this.matchService.GetForUser(this.userName).subscribe((data) => {
-        this.initComponent(data);
-      }, (error) => console.log(error));
+      this.matchService.GetForUser(this.userName).subscribe((data) =>
+        this.initComponent(data),
+        (error) => console.log(error));
     } else {
       this.showAll = true;
-      this.matchService.GetAll().subscribe((data) => {
-        this.initComponent(data);
-      }, (error) => console.log(error));
+      this.matchService.GetAll().subscribe((data) =>
+        this.initComponent(data),
+        (error) => console.log(error));
     }
   }
 

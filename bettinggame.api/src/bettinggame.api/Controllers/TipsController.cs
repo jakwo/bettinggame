@@ -2,25 +2,38 @@
 using bettinggame.data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace bettinggame.api.Controllers
 {
     [Route("api/[controller]")]
     [Authorize(ActiveAuthenticationSchemes = "Bearer")]
-    public class TipsController
+    public class TipsController : Controller
     {
         private ITipsRepository _tipsRepository;
+        private IMatchesRepository _matchesRepository;
 
-        public TipsController(ITipsRepository tipsRepository)
+        public TipsController(ITipsRepository tipsRepository, IMatchesRepository matchesRepository)
         {
+            _matchesRepository = matchesRepository;
             _tipsRepository = tipsRepository;
         }
 
         // POST: api/matches/tips
         [HttpPost]
-        public void UpdateTip([FromBody] TipModel tip)
+        public IActionResult UpdateTip([FromBody] TipModel tip)
         {
+            var match = _matchesRepository.GetMatch(tip.MatchId);
+            if(match != null)
+            {
+                if(match.Date < DateTime.Now)
+                {
+                    return BadRequest("Das Spiel liegt bereits in der Vergangenheit..");
+                }
+            }
+
             _tipsRepository.UpdateTip(tip.Id, tip.HomeGoals, tip.AwayGoals);
+            return Ok();
         }
     }
 }
