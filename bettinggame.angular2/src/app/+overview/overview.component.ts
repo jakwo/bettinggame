@@ -7,6 +7,7 @@ import { User } from '../models/user.model';
 import { Tip } from '../models/tip.model'
 import { Score } from  '../score.pipe'
 import { TipFilter } from  '../tip-filter.pipe'
+import { MatchFilter } from  '../match-filter.pipe'
 import { DeDate } from  '../de-date.pipe'
 
 @Component({
@@ -14,14 +15,15 @@ import { DeDate } from  '../de-date.pipe'
   selector: 'app-overview',
   templateUrl: 'overview.component.html',
   styleUrls: ['overview.component.css'],
-  pipes: [Score, TipFilter, DeDate],
+  pipes: [Score, TipFilter, MatchFilter, DeDate],
   providers: [
     MatchService
   ]
 })
 export class OverviewComponent implements OnInit {
-  showAll: boolean = false;
+  showAllTips: boolean = false;
   simulationMode: boolean = false;
+  showCompleted: boolean = true;
   matches: Match[] = [];
   users: User[] = [];
   userName: string;
@@ -36,7 +38,7 @@ export class OverviewComponent implements OnInit {
         this.initComponent(data),
         (error) => console.log(error));
     } else {
-      this.showAll = true;
+      this.showAllTips = true;
       this.matchService.GetAll().subscribe((data) =>
         this.initComponent(data),
         (error) => console.log(error));

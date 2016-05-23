@@ -23,3 +23,7 @@ td, th {
 .completed{
     background-color: lightgray;
 }
+
+.uppercase{
+    text-transform: uppercase;    
+}

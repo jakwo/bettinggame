@@ -11,5 +11,4 @@ export class TipFilter implements PipeTransform {
     }
     return value;
   }
-
 }
