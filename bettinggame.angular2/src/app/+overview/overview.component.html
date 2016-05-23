@@ -21,13 +21,13 @@
             <th class="text-right col-sm-3"><span class="hidden-xs">{{match.HomeTeam}}</span></th>
             <th class="text-right col-sm-1"><span class="flag-icon flag-icon-{{match.HomeTeamFlag}}"></span></th>
             <th class="text-right col-sm-2">
-              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.HomeGoals" (ngModelChange)="saveResult(match)"
+              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.HomeGoals" (blur)="saveResult(match)"
                 type="number" min="0" max="9" />
               <span *ngIf="!matchResultInputAllowed(match)">{{match.HomeGoals | score}}</span>
             </th>
             <th>:</th>
             <th class="col-sm-2">
-              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.AwayGoals" (ngModelChange)="saveResult(match)"
+              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.AwayGoals" (blur)="saveResult(match)"
                 type="number" min="0" max="9" />
               <span *ngIf="!matchResultInputAllowed(match)">{{match.AwayGoals | score}}</span>
             </th>
@@ -40,13 +40,13 @@
             <td class="text-right user" colspan="2">{{tip.User}} ({{getUserPoints(tip.User)}})</td>
             <td class="text-right">
               <input *ngIf="tipInputAllowed(match, tip)" class="form-control" type="number" [(ngModel)]="tip.HomeGoals"
-                (ngModelChange)="saveTip(tip)" min="0" max="9" />
+                (blur)="saveTip(tip)" min="0" max="9" />
               <span *ngIf="!tipInputAllowed(match, tip)">{{tip.HomeGoals | score}}</span>
             </td>
             <td>:</td>
             <td>
               <input *ngIf="tipInputAllowed(match, tip)" class="form-control" type="number" [(ngModel)]="tip.AwayGoals"
-                (ngModelChange)="saveTip(tip)" min="0" max="9" />
+                (blur)="saveTip(tip)" min="0" max="9" />
               <span *ngIf="!tipInputAllowed(match, tip)">{{tip.AwayGoals | score}}</span>
             </td>
             <td colspan="2">
