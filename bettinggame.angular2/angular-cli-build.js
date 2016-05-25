@@ -14,10 +14,10 @@ module.exports = function (defaults) {
       '@angular/**/*.js',
 
       'moment/min/moment-with-locales.min.js',
-      'bootstrap/dist/js/bootstrap.min.js',
       'angular2-jwt/**/*.js',
       'underscore/underscore-min.js',
 
+      'bootstrap/dist/js/bootstrap.min.js',
       'bootstrap/dist/css/bootstrap.min.css',
       
       'flag-icon-css/flags/**/*.svg',
