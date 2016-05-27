@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import * as underscore_ from 'underscore';
+const _: UnderscoreStatic = (<any>underscore_)['default'] || underscore_;
+
 @Pipe({
   name: 'tipFilter'
 })

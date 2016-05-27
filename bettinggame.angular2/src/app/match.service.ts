@@ -7,6 +7,9 @@ import { Tip } from './models/tip.model';
 import { AuthHttp } from 'angular2-jwt';
 import { environment } from './environment'
 
+import * as underscore_ from 'underscore';
+const _: UnderscoreStatic = (<any>underscore_)['default'] || underscore_;
+
 @Injectable()
 export class MatchService {
 

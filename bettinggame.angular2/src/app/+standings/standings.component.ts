@@ -5,6 +5,9 @@ import { Match } from '../models/match.model';
 import { User } from '../models/user.model';
 import { Tip } from '../models/tip.model'
 
+import * as underscore_ from 'underscore';
+const _: UnderscoreStatic = (<any>underscore_)['default'] || underscore_;
+
 @Component({
   moduleId: module.id,
   selector: 'app-standings',

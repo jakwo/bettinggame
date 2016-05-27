@@ -7,19 +7,19 @@ module.exports = function (defaults) {
     vendorNpmFiles: [
       'systemjs/dist/system-polyfills.js',
       'systemjs/dist/system.src.js',
-      'zone.js/dist/*.js',
+      'zone.js/dist/**/*.+(js|js.map)',
       'es6-shim/es6-shim.js',
-      'reflect-metadata/*.js',
-      'rxjs/**/*.js',
-      '@angular/**/*.js',
+      'reflect-metadata/**/*.+(js|js.map)',
+      'rxjs/**/*.+(js|js.map)',
+      '@angular/**/*.+(js|js.map)',
 
       'moment/min/moment-with-locales.min.js',
-      'bootstrap/dist/js/bootstrap.min.js',
-      'angular2-jwt/**/*.js',
-      'underscore/underscore-min.js',
+      'angular2-jwt/**/*.+(js|js.map)',
+      'underscore/underscore*.+(js|map)',
 
+      'bootstrap/dist/js/bootstrap.min.js',
       'bootstrap/dist/css/bootstrap.min.css',
-      
+
       'flag-icon-css/flags/**/*.svg',
       'flag-icon-css/css/flag-icon.min.css'
     ]

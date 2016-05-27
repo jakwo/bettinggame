@@ -3,11 +3,27 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-  'angular2-jwt': 'vendor/angular2-jwt/angular2-jwt.js'
+  'angular2-jwt': 'vendor/angular2-jwt',
+  'moment': 'vendor/moment/min',
+  'underscore': 'vendor/underscore'
 };
 
 /** User packages configuration. */
 const packages: any = {
+  'angular2-jwt': {
+    defaultExtension: 'js',
+    main: 'angular2-jwt.js'
+  },
+  'underscore': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'underscore.js'
+  },
+  'moment': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'moment-with-locales.min.js'
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -10,6 +10,9 @@ import { TipFilter } from  '../tip-filter.pipe'
 import { MatchFilter } from  '../match-filter.pipe'
 import { DeDate } from  '../de-date.pipe'
 
+import * as underscore_ from 'underscore';
+const _: UnderscoreStatic = (<any>underscore_)['default'] || underscore_;
+
 @Component({
   moduleId: module.id,
   selector: 'app-overview',

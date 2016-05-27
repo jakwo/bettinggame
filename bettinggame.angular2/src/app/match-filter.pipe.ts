@@ -1,6 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Match } from './models/match.model'
 
+import * as underscore_ from 'underscore';
+const _: UnderscoreStatic = (<any>underscore_)['default'] || underscore_;
+
 @Pipe({
   name: 'matchFilter'
 })
