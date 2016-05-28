@@ -7,6 +7,8 @@
     "bettinggame.data": "1.0.0-*",
     "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Cors": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Mvc.Core": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0-rc2-final",
@@ -34,7 +36,8 @@
   "publishOptions": {
     "include": [
       "wwwroot",
-      "web.config"
+      "web.config",
+      "appsettings.json"
     ]
   },
   "runtimeOptions": {

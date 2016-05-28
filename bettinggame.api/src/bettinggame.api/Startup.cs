@@ -21,9 +21,10 @@ namespace bettinggame.api
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
 
-            builder.AddEnvironmentVariables();
             Configuration = builder.Build().ReloadOnChanged("appsettings.json");
         }
 
@@ -40,8 +41,8 @@ namespace bettinggame.api
             services.AddEntityFramework()
                  .AddDbContext<BettingGameContext>(
                      options =>
-                     {
-                         options.UseSqlServer(Configuration["Data:bettinggames:ConnectionString"],
+                     {                         
+                         options.UseSqlServer(Configuration.GetConnectionString("bettinggame"),
                                 b => b.MigrationsAssembly("bettinggame.api"));
                      });
 
@@ -62,6 +63,9 @@ namespace bettinggame.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
+
             BettingGameDataInitializer.Seed(app.ApplicationServices.GetService<BettingGameContext>());
 
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
