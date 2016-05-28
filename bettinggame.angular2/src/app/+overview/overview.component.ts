@@ -80,14 +80,14 @@ export class OverviewComponent implements OnInit {
     if (match.MatchCompleted || tip.User !== this.userName) {
       return false;
     }
-    return tip.User === this.userName;
+    return this.loggedIn() && tip.User === this.userName;
   }
 
   matchResultInputAllowed(match: Match) {
     if (this.simulationMode) {
       return !match.MatchCompleted;
     }
-    return this.isAdmin() && match.MatchCompleted;
+    return this.loggedIn() && this.isAdmin() && match.MatchCompleted;
   }
 
   getPoints(match: Match, user: string) {
