@@ -135,6 +135,7 @@ DocProject/Help/html
 
 # Click-Once directory
 publish/
+PublishProfiles/
 
 # Publish Web Output
 *.[Pp]ublish.xml
@@ -242,4 +243,4 @@ ModelManifest.xml
 .paket/paket.exe
 
 # FAKE - F# Make
-.fake/
+.fake/7
