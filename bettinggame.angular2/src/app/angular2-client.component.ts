@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { OverviewComponent } from './+overview';
+import { OverviewComponent } from './overview';
 import { Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from '@angular/router-deprecated';
-import { StandingsComponent } from './+standings';
+import { StandingsComponent } from './standings';
 import { Auth0Service } from './auth0.service'
 
 @Component({
