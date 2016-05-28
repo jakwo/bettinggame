@@ -79,7 +79,7 @@ namespace bettinggame.api.Controllers
                                   new MatchModel
                                   {
                                       Id = match.Id,
-                                      Date = match.Date.ToUniversalTime(),
+                                      Date = match.Date,
                                       AwayGoals = match.AwayGoals,
                                       HomeGoals = match.HomeGoals,
                                       HomeTeamFlag = GetFlag(match.HomeTeam),
