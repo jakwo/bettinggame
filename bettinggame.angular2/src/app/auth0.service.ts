@@ -18,6 +18,7 @@ export class Auth0Service {
             this.lock.show({dict: 'de'}, (err, profile: any, token) => {
 
                 if (err) {
+                    console.log(err);
                     reject();
                     return;
                 }
