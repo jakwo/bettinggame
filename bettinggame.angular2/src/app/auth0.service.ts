@@ -15,7 +15,11 @@ export class Auth0Service {
 
     login() {
         return new Promise((resolve, reject) => {
-            this.lock.show({dict: 'de'}, (err, profile: any, token) => {
+            this.lock.show({
+                usernameStyle: 'username',
+                dict: 'de',
+                icon: 'http://images.clipartpanda.com/soccer-ball-clipart-no-background-4nTBxeriA.png'
+            }, (err, profile: any, token) => {
 
                 if (err) {
                     console.log(err);
