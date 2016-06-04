@@ -6,18 +6,18 @@ table tbody {
     border-top: 1px solid #999;
 }
 
+span{
+    font-size: 11px
+}
+
 td, th {
     /*border:  1px solid #999;*/
     padding: 0.5rem;
 }
 
 .user {
-    font-style: italic;
--o-text-overflow: ellipsis;   /* Opera */
-    text-overflow:    ellipsis;   /* IE, Safari (WebKit) */
-    overflow:hidden;              /* don't show excess chars */
-    white-space:nowrap;           /* force single line */
-    width: 10px;                 /* fixed width */
+    font-style: italic;    
+    font-size: 9px;
 }
 
 .flag-icon {
