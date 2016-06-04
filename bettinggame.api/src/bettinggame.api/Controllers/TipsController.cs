@@ -28,7 +28,7 @@ namespace bettinggame.api.Controllers
             {
                 if(match.Date < DateTime.UtcNow)
                 {
-                    return BadRequest("Das Spiel liegt bereits in der Vergangenheit..");
+                    return BadRequest("Das Spiel wurde leider schon angepfiffen..");
                 }
             }
 

@@ -86,7 +86,7 @@ namespace bettinggame.api.Controllers
                                       AwayTeamFlag = GetFlag(match.AwayTeam),
                                       HomeTeam = GetCountry(match.HomeTeam),
                                       AwayTeam = GetCountry(match.AwayTeam),
-                                      MatchCompleted = match.Date < DateTime.Now,
+                                      MatchCompleted = match.Date < DateTime.UtcNow,
                                       Tips = from tip in match.Tips
                                              orderby tip.User
                                              select
