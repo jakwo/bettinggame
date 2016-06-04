@@ -94,6 +94,20 @@ export class OverviewComponent implements OnInit {
     return this.matchService.CalculatePoints(match, user);
   }
 
+  getName(name: string) {
+    var winWidth = window.innerWidth;
+    if (winWidth < 768) {
+      console.log('Window Width: ' + winWidth + 'class used: col-xs');
+    } else if (winWidth <= 991) {
+      console.log('Window Width: ' + winWidth + 'class used: col-sm');
+    } else if (winWidth <= 1199) {
+      console.log('Window Width: ' + winWidth + 'class used: col-md');
+    } else {
+      console.log('Window Width: ' + winWidth + 'class used: col-lg');
+    }
+    return name;
+  }
+
   private calculatePoints() {
     _.each(this.users, user => user.Points = 0);
     _.each(this.matches, (match) => {

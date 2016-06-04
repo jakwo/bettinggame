@@ -140,7 +140,7 @@ namespace bettinggame.api.Controllers
                 case Country.TR:
                     return "Türkei";
                 case Country.HR:
-                    return "Koratien";
+                    return "Kroatien";
 
                 case Country.BE:
                     return "Belgien";

@@ -34,10 +34,6 @@ namespace bettinggame.api
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //Run dnx ef migrations add MyFirstMigration to scaffold a migration to create the initial set of tables for your model.
-            //Run dnx ef database update to apply the new migration to the database.Because your database doesn’t exist yet, it will be created for you before the migration is applied.
-
-            //http://stackoverflow.com/questions/31097933/setting-the-sql-connection-string-for-asp-net-5-web-app-in-azure
             services.AddEntityFramework()
                  .AddDbContext<BettingGameContext>(
                      options =>
