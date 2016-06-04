@@ -52,7 +52,7 @@ namespace bettinggame.api.Controllers
             var match = _matchesRepository.GetMatch(matchModel.Id);
             if (match != null)
             {
-                if (match.Date > DateTime.Now)
+                if (match.Date > DateTime.UtcNow)
                 {
                     return BadRequest("Das Spiel ist noch nicht gespielt..");
                 }

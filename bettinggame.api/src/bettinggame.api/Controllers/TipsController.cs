@@ -26,7 +26,7 @@ namespace bettinggame.api.Controllers
             var match = _matchesRepository.GetMatch(tip.MatchId);
             if(match != null)
             {
-                if(match.Date < DateTime.Now)
+                if(match.Date < DateTime.UtcNow)
                 {
                     return BadRequest("Das Spiel liegt bereits in der Vergangenheit..");
                 }
