@@ -1,4 +1,11 @@
-<div class="well col-sm-12">
+<div class="well col-sm-12" *ngIf="loggedIn()">
+  <div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="tipsTipped" 
+    aria-valuemin="0" aria-valuemax="matchCount" 
+    [ngStyle]="{'width': ((matchCount-tipsTipped) * 100 / matchCount)+'%'}">
+      {{matchCount-tipsTipped}} / {{matchCount}} offen
+    </div>
+  </div>
   <div class="col-sm-4">
     <button type="button" class="btn btn-primary btn-lg btn-block" (click)="showAllTips = !showAllTips">
         <span *ngIf="!showAllTips">Alle Tipps anzeigen</span>
@@ -42,16 +49,14 @@
             </th>
             <th class="text-left col-md-1 col-sm-2"><span class="flag-icon flag-icon-{{match.HomeTeamFlag}}"></span></th>
             <th class="text-right col-md-2 col-sm-4">
-              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.HomeGoals" 
-              (blur)="saveResult(match)" (click)="firefoxBlurFix($event)"
-                type="number" min="0" max="9" />
+              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.HomeGoals" (blur)="saveResult(match)"
+                (click)="firefoxBlurFix($event)" type="number" min="0" max="9" />
               <span *ngIf="!matchResultInputAllowed(match)">{{match.HomeGoals | score}}</span>
             </th>
             <th class="text-center">:</th>
             <th class="col-md-2 col-sm-4">
-              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.AwayGoals" 
-              (blur)="saveResult(match)" (click)="firefoxBlurFix($event)"
-                type="number" min="0" max="9" />
+              <input *ngIf="matchResultInputAllowed(match)" class="form-control" [(ngModel)]="match.AwayGoals" (blur)="saveResult(match)"
+                (click)="firefoxBlurFix($event)" type="number" min="0" max="9" />
               <span *ngIf="!matchResultInputAllowed(match)">{{match.AwayGoals | score}}</span>
             </th>
             <th class="text-right col-md-1 col-sm-2"><span class="flag-icon flag-icon-{{match.AwayTeamFlag}}"></span></th>
@@ -66,16 +71,14 @@
             <td class="text-right hidden-sm hidden-xs" colspan="2"><span class="user">{{trimUserName(tip.User)}} ({{getUserPoints(tip.User)}})</span></td>
 
             <td class="text-right">
-              <input *ngIf="tipInputAllowed(match, tip)" class="form-control" type="number" [(ngModel)]="tip.HomeGoals"
-               (blur)="saveTip(tip)" (click)="firefoxBlurFix($event)"
-                min="0" max="9" />
+              <input *ngIf="tipInputAllowed(match, tip)" class="form-control" type="number" [(ngModel)]="tip.HomeGoals" (blur)="saveTip(tip)"
+                (click)="firefoxBlurFix($event)" min="0" max="9" />
               <span *ngIf="!tipInputAllowed(match, tip)">{{tip.HomeGoals | score}}</span>
             </td>
             <td class="text-center">:</td>
             <td class="text-left">
-              <input *ngIf="tipInputAllowed(match, tip)" class="form-control" type="number" [(ngModel)]="tip.AwayGoals" 
-              (blur)="saveTip(tip)" (click)="firefoxBlurFix($event)"
-                min="0" max="9" />
+              <input *ngIf="tipInputAllowed(match, tip)" class="form-control" type="number" [(ngModel)]="tip.AwayGoals" (blur)="saveTip(tip)"
+                (click)="firefoxBlurFix($event)" min="0" max="9" />
               <span *ngIf="!tipInputAllowed(match, tip)">{{tip.AwayGoals | score}}</span>
             </td>
             <td class="hidden-md hidden-lg">

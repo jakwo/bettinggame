@@ -30,6 +30,8 @@ export class OverviewComponent implements OnInit {
   matches: Match[] = [];
   users: User[] = [];
   userName: string;
+  matchCount: number = 0;
+  tipsTipped: number = 0;
 
   constructor(private matchService: MatchService, private auth0Service: Auth0Service) {
   }
@@ -66,7 +68,7 @@ export class OverviewComponent implements OnInit {
       }
       this.matchService.SaveResult(match);
     }
-    
+
     this.calculatePoints();
   }
 
@@ -120,6 +122,9 @@ export class OverviewComponent implements OnInit {
   }
 
   private calculatePoints() {
+    this.tipsTipped = 0;
+    this.matchCount = _.filter(this.matches, (match) => !match.MatchCompleted).length;
+
     _.each(this.users, user => user.Points = 0);
     _.each(this.matches, (match) => {
       _.each(this.users, (user: User) => user.Points += this.matchService.CalculatePoints(match, user.Name));
@@ -127,16 +132,31 @@ export class OverviewComponent implements OnInit {
     _.sortBy(this.users, (user: User) => user.Points);
     var loggedInUser = _.findWhere(this.users, { Name: this.userName });
 
-    if (loggedInUser && _.indexOf(this.users, loggedInUser) != 0) {
-      this.users = _.without(this.users, loggedInUser);
-      this.users.unshift(loggedInUser);
+    if (loggedInUser) {
 
+      // Calculate tips given
       _.each(this.matches, (match: Match) => {
-        var tips = _.find(match.Tips, { User: loggedInUser.Name });
-
-        match.Tips = _.without(match.Tips, tips);
-        match.Tips.unshift(tips);
+        if (!match.MatchCompleted) {
+          var tips = _.find(match.Tips, { User: loggedInUser.Name });
+          if (tips.AwayGoals != null && tips.HomeGoals != null &&
+            tips.AwayGoals >= 0 && tips.HomeGoals >= 0) {
+            this.tipsTipped += 1;
+          }
+        }
       });
+
+      // Move the current user and the tips to the top of the lists. 
+      if (_.indexOf(this.users, loggedInUser) != 0) {
+        this.users = _.without(this.users, loggedInUser);
+        this.users.unshift(loggedInUser);
+
+        _.each(this.matches, (match: Match) => {
+          var tips = _.find(match.Tips, { User: loggedInUser.Name });
+
+          match.Tips = _.without(match.Tips, tips);
+          match.Tips.unshift(tips);
+        });
+      }
     }
   }
 
