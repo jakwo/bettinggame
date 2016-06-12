@@ -41,7 +41,7 @@ namespace bettinggame.api.Controllers
                 matches = _matchesRepository.GetAllMatches();
             }
 
-            var matchModels = MapMatches(matches);
+            var matchModels = MapMatches(matches, userName);
             return Ok(matchModels);
         }
 
@@ -68,18 +68,18 @@ namespace bettinggame.api.Controllers
         [AllowAnonymous]
         public IActionResult Get()
         {
-            var matchModels = MapMatches(_matchesRepository.GetAllMatches());
+            var matchModels = MapMatches(_matchesRepository.GetAllMatches(), string.Empty);
             return Ok(matchModels);
         }
 
-        private static IEnumerable<MatchModel> MapMatches(ICollection<Match> matches)
+        private static IEnumerable<MatchModel> MapMatches(ICollection<Match> matches, string userName)
         {
             var matchModels = from match in matches
                               select
                                   new MatchModel
                                   {
                                       Id = match.Id,
-                                      Date = match.Date,
+                                      Date = DateTime.SpecifyKind(match.Date, DateTimeKind.Utc),
                                       AwayGoals = match.AwayGoals,
                                       HomeGoals = match.HomeGoals,
                                       HomeTeamFlag = GetFlag(match.HomeTeam),
@@ -89,6 +89,7 @@ namespace bettinggame.api.Controllers
                                       MatchCompleted = match.Date < DateTime.UtcNow,
                                       Tips = from tip in match.Tips
                                              orderby tip.User
+                                             where (match.Date < DateTime.UtcNow || tip.User == userName)
                                              select
                                                  new TipModel
                                                  {

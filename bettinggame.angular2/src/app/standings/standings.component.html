@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th></th>
+      <th></th>
       <th class="col-sm-2 text-center">Gesamt</th>
       <th class="col-sm-1 text-center"><span class="label label-success">3</span></th>
       <th class="col-sm-1 text-center"><span class="label label-primary">2</span></th>
@@ -10,9 +11,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users" class="text-center">
+    <tr *ngFor="let user of users; let i = index" class="text-center">
+      <td class="text-right"><strong>{{i+1}}</strong></td>
       <td class="text-left">{{user.Name}}</td>
-      <td>{{user.Points}}</td>
+      <td><strong>{{user.Points}}</strong></td>
       <td>{{user.Times3}}</td>
       <td>{{user.Times2}}</td>
       <td>{{user.Times1}}</td>

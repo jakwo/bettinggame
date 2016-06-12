@@ -74,6 +74,7 @@ export class StandingsComponent implements OnInit {
         user.Points += points;
       });
     });
-    _.sortBy(this.users, (user: User) => user.Points);
+    this.users = _.chain(this.users).sortBy('Times1').sortBy('Times2').sortBy('Times3').sortBy('Points').reverse().value();
+    // this.users = _.sortBy(this.users, (user: User) => user.Points).reverse();
   }
 }
