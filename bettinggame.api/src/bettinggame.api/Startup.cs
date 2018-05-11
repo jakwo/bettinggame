@@ -11,6 +11,8 @@ using bettinggame.data;
 using bettinggame.data.Repositories;
 using bettinggame.api.Properties;
 using System.Security.Claims;
+using Newtonsoft.Json.Serialization;
+using Microsoft.IdentityModel.Tokens;
 
 namespace bettinggame.api
 {
@@ -37,7 +39,7 @@ namespace bettinggame.api
             services.AddEntityFramework()
                  .AddDbContext<BettingGameContext>(
                      options =>
-                     {                         
+                     {
                          options.UseSqlServer(Configuration.GetConnectionString("bettinggame"),
                                 b => b.MigrationsAssembly("bettinggame.api"));
                      });
@@ -53,25 +55,31 @@ namespace bettinggame.api
 
             services.AddCors();
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app,
+                BettingGameContext dbContext)
         {
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
 
-            BettingGameDataInitializer.Seed(app.ApplicationServices.GetService<BettingGameContext>());
+            BettingGameDataInitializer.Seed(dbContext);
 
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             var settings = app.ApplicationServices.GetService<IOptions<Auth0Settings>>();
 
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            var options = new JwtBearerOptions
             {
                 Audience = settings.Value.ClientId,
                 Authority = $"https://{settings.Value.Domain}",
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    NameClaimType = "name",
+                    RoleClaimType = "https://schemas.testa.eu.auth0.com/roles"
+                },
                 Events =
                                       new JwtBearerEvents
                                       {
@@ -84,11 +92,14 @@ namespace bettinggame.api
                                                   context.Request.Headers["Authorization"][0].Substring(context.Ticket.AuthenticationScheme.Length + 1)));
 
                                               // OPTIONAL: you can read/modify the claims that are populated based on the JWT
-                                              // claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, claimsIdentity.FindFirst("name").Value));
+                                              //claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, claimsIdentity.FindFirst("name").Value));
+                                              //claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, claimsIdentity.FindFirst("role").Value));
                                               return Task.FromResult(0);
                                           }
                                       }
-            });
+            };
+
+            app.UseJwtBearerAuthentication(options);
 
             app.UseMvc();
         }

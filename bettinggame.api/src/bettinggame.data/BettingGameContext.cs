@@ -9,20 +9,18 @@ namespace bettinggame.data
 
         public DbSet<Tip> Tips { get; set; }
 
-        public BettingGameContext(DbContextOptions<BettingGameContext> options) :base(options)
+        public BettingGameContext(DbContextOptions<BettingGameContext> options) : base(options)
         {
             Database.Migrate();
         }
-        
-        protected override void OnModelCreating(ModelBuilder builder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.Entity<Tip>().Property(x => x.User).IsRequired().HasMaxLength(30);
+            modelBuilder.Entity<Tip>().HasIndex(x => new { x.User, x.MatchId }).IsUnique();
 
-            builder.Entity<Tip>().HasIndex(x => new { x.User, x.MatchId }).IsUnique();
+            modelBuilder.Entity<Tip>().HasOne(x => x.Match).WithMany(x => x.Tips).HasForeignKey(x => x.MatchId);
 
-            builder.Entity<Tip>().HasOne(x => x.Match).WithMany(x => x.Tips).HasForeignKey(x => x.MatchId);
-
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
         }
 
         public override int SaveChanges()

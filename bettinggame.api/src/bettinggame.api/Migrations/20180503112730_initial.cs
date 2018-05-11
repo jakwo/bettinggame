@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace bettinggame.api.Migrations
 {
-    public partial class InitialDatabase : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,7 +35,7 @@ namespace bettinggame.api.Migrations
                     AwayGoals = table.Column<int>(nullable: true),
                     HomeGoals = table.Column<int>(nullable: true),
                     MatchId = table.Column<long>(nullable: false),
-                    User = table.Column<string>(nullable: false)
+                    User = table.Column<string>(maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {

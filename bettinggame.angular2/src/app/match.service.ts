@@ -47,8 +47,8 @@ export class MatchService {
             .map(res => res.json());
     }
 
-    public GetForUser = (userName): Observable<any[]> => {
-        return this.authHttp.get(`${this.baseUrl}/matches/${userName}`)
+    public GetForUser = (): Observable<any[]> => {
+        return this.authHttp.get(`${this.baseUrl}/matches/user`)
             .map(res => res.json());
     }
 

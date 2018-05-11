@@ -38,8 +38,8 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit() {
     this.userName = localStorage.getItem("userName");
-    if (this.userName && this.loggedIn()) {
-      this.matchService.GetForUser(this.userName).subscribe((data) =>
+    if (this.loggedIn()) {
+      this.matchService.GetForUser().subscribe((data) =>
         this.initComponent(data),
         (error) => console.log(error));
     } else {
@@ -145,7 +145,7 @@ export class OverviewComponent implements OnInit {
         }
       });
 
-      // Move the current user and the tips to the top of the lists. 
+      // Move the current user and the tips to the top of the lists.
       if (_.indexOf(this.users, loggedInUser) != 0) {
         this.users = _.without(this.users, loggedInUser);
         this.users.unshift(loggedInUser);

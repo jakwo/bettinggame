@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B3F69440-199A-43CB-B341-B10E478CF681}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{65FD991D-1AAB-48E3-870B-B2DB5CD4E809}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "bettinggame.api", "src\bettinggame.api\bettinggame.api.xproj", "{2389A32E-8F5D-4B6E-8F1C-949722E17A38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bettinggame.api", "src\bettinggame.api\bettinggame.api.csproj", "{2389A32E-8F5D-4B6E-8F1C-949722E17A38}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "bettinggame.data", "src\bettinggame.data\bettinggame.data.xproj", "{728A21BC-5D24-49D8-9CE4-EDA9DA958FAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bettinggame.data", "src\bettinggame.data\bettinggame.data.csproj", "{728A21BC-5D24-49D8-9CE4-EDA9DA958FAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,5 +32,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2389A32E-8F5D-4B6E-8F1C-949722E17A38} = {B3F69440-199A-43CB-B341-B10E478CF681}
 		{728A21BC-5D24-49D8-9CE4-EDA9DA958FAE} = {B3F69440-199A-43CB-B341-B10E478CF681}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D892CEEB-BF99-41DA-9ECA-5224F9531968}
 	EndGlobalSection
 EndGlobal

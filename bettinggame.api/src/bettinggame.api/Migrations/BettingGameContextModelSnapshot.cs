@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using bettinggame.data;
+using bettinggame.data.Entities;
 
 namespace bettinggame.api.Migrations
 {
@@ -13,7 +14,7 @@ namespace bettinggame.api.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")
+                .HasAnnotation("ProductVersion", "1.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("bettinggame.data.Entities.Match", b =>
@@ -49,7 +50,7 @@ namespace bettinggame.api.Migrations
 
                     b.Property<string>("User")
                         .IsRequired()
-                        .HasAnnotation("MaxLength", 30);
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 
@@ -63,8 +64,8 @@ namespace bettinggame.api.Migrations
 
             modelBuilder.Entity("bettinggame.data.Entities.Tip", b =>
                 {
-                    b.HasOne("bettinggame.data.Entities.Match")
-                        .WithMany()
+                    b.HasOne("bettinggame.data.Entities.Match", "Match")
+                        .WithMany("Tips")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

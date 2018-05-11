@@ -24,12 +24,9 @@ namespace bettinggame.api.Controllers
         public IActionResult UpdateTip([FromBody] TipModel tip)
         {
             var match = _matchesRepository.GetMatch(tip.MatchId);
-            if(match != null)
+            if (match != null && match.Date < DateTime.UtcNow)
             {
-                if(match.Date < DateTime.UtcNow)
-                {
-                    return BadRequest("Das Spiel wurde leider schon angepfiffen..");
-                }
+                return BadRequest("Das Spiel wurde leider schon angepfiffen..");
             }
 
             _tipsRepository.UpdateTip(tip.Id, tip.HomeGoals, tip.AwayGoals);

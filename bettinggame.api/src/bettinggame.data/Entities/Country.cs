@@ -2,34 +2,37 @@
 {
     public enum Country
     {
-        DE,
-        UA,
-        PL,
-        NIR,
-
-        EN,
-        RU,
-        WLS,
-        SK,
-
-        AL,
-        CH,
-        FR,
-        RO,
-
-        ES,
-        CZ,
-        TR,
-        HR,
-
-        BE,
-        IT,
-        IE,
-        SE,
-
-        PT,
-        IS,
-        AT,
-        HU
+        Egypt,
+        Morocco,
+        Nigeria,
+        Senegal,
+        Tunisia,
+        Australia,
+        Iran,
+        Japan,
+        KoreaRepublic,
+        SaudiArabia,
+        Belgium,
+        Croatia,
+        Denmark,
+        England,
+        France,
+        Germany,
+        Iceland,
+        Poland,
+        Portugal,
+        Russia,
+        Serbia,
+        Spain,
+        Sweden,
+        Switzerland,
+        CostaRica,
+        Mexico,
+        Panama,
+        Argentina,
+        Brazil,
+        Colombia,
+        Peru,
+        Uruguay    
     }
 }

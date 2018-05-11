@@ -24,9 +24,11 @@ namespace bettinggame.api.Controllers
         }
 
         // GET: api/matches
-        [HttpGet("{userName}")]
-        public IActionResult GetForUser(string userName)
+        [HttpGet("user")]
+        public IActionResult GetForUser()
         {
+            var userName = HttpContext.User.Identity.Name;
+
             // Create all tips for the user if it's his first login.
             var matches = _matchesRepository.GetAllMatches();
             if (!matches.All(x => x.Tips != null && x.Tips.Any(y => y.User.Equals(userName))))
@@ -47,6 +49,7 @@ namespace bettinggame.api.Controllers
 
         // POST: api/matches/
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult UpdateResult([FromBody] MatchModel matchModel)
         {
             var match = _matchesRepository.GetMatch(matchModel.Id);
@@ -82,8 +85,8 @@ namespace bettinggame.api.Controllers
                                       Date = DateTime.SpecifyKind(match.Date, DateTimeKind.Utc),
                                       AwayGoals = match.AwayGoals,
                                       HomeGoals = match.HomeGoals,
-                                      HomeTeamFlag = GetFlag(match.HomeTeam),
-                                      AwayTeamFlag = GetFlag(match.AwayTeam),
+                                      HomeTeamFlag = GetFlag(match.HomeTeam).ToLower(),
+                                      AwayTeamFlag = GetFlag(match.AwayTeam).ToLower(),
                                       HomeTeam = GetCountry(match.HomeTeam),
                                       AwayTeam = GetCountry(match.AwayTeam),
                                       MatchCompleted = match.Date < DateTime.UtcNow,
@@ -107,59 +110,77 @@ namespace bettinggame.api.Controllers
         {
             switch (country)
             {
-                case Country.DE:
-                    return "Deutschland";
-                case Country.UA:
-                    return "Ukraine";
-                case Country.PL:
-                    return "Polen";
-                case Country.NIR:
-                    return "Nordirland";
-
-                case Country.EN:
-                    return "England";
-                case Country.RU:
+                case Country.SaudiArabia:
+                    return "Saudi-Arabien";
+                case Country.Egypt:
+                    return "Ägypten";
+                case Country.Russia:
                     return "Russland";
-                case Country.WLS:
-                    return "Wales";
-                case Country.SK:
-                    return "Slowakei";
+                case Country.Uruguay:
+                    return "Uruguay";
 
-                case Country.AL:
-                    return "Albanien";
-                case Country.CH:
-                    return "Schweiz";
-                case Country.FR:
-                    return "Frankreich";
-                case Country.RO:
-                    return "Rumänien";
-
-                case Country.ES:
-                    return "Spanien";
-                case Country.CZ:
-                    return "Tschechien";
-                case Country.TR:
-                    return "Türkei";
-                case Country.HR:
-                    return "Kroatien";
-
-                case Country.BE:
-                    return "Belgien";
-                case Country.IT:
-                    return "Italien";
-                case Country.IE:
-                    return "Irland";
-                case Country.SE:
-                    return "Schweden";
-
-                case Country.PT:
+                case Country.Iran:
+                    return "Iran";
+                case Country.Portugal:
                     return "Portugal";
-                case Country.IS:
+                case Country.Spain:
+                    return "Spanien";
+                case Country.Morocco:
+                    return "Marokko";
+
+                case Country.Peru:
+                    return "Peru";
+                case Country.Denmark:
+                    return "Dänemark";
+                case Country.France:
+                    return "Frankreich";
+                case Country.Australia:
+                    return "Australien";
+
+                case Country.Argentina:
+                    return "Argentinien";
+                case Country.Iceland:
                     return "Island";
-                case Country.AT:
-                    return "Österreich";
-                case Country.HU:
-                    return "Ungarn";
+                case Country.Croatia:
+                    return "Kroatien";
+                case Country.Nigeria:
+                    return "Nigeria";
+
+                case Country.Serbia:
+                    return "Serbien";
+                case Country.Brazil:
+                    return "Brasilien";
+                case Country.Switzerland:
+                    return "Schweiz";
+                case Country.CostaRica:
+                    return "Costa Rica";
+
+                case Country.Mexico:
+                    return "Mexico";
+                case Country.Germany:
+                    return "Deutschland";
+                case Country.Sweden:
+                    return "Schweden";
+                case Country.KoreaRepublic:
+                    return "Südkorea";
+
+                case Country.Tunisia:
+                    return "Tunesien";
+                case Country.Panama:
+                    return "Panama";
+                case Country.Belgium:
+                    return "Belgien";
+                case Country.England:
+                    return "England";
+
+                case Country.Japan:
+                    return "Japan";
+                case Country.Poland:
+                    return "Polen";
+                case Country.Colombia:
+                    return "Kolumbien";
+                case Country.Senegal:
+                    return "Senegal";
                 default:
                     return string.Empty;
             }
@@ -169,12 +190,77 @@ namespace bettinggame.api.Controllers
         {
             switch (country)
             {
-                case Country.EN:
-                    return "gb-eng";
-                case Country.WLS:
-                    return "gb-wls";
-                case Country.NIR:
-                    return "gb-nir";
+                case Country.SaudiArabia:
+                    return "SA";
+                case Country.Egypt:
+                    return "EG";
+                case Country.Russia:
+                    return "RU";
+                case Country.Uruguay:
+                    return "UY";
+
+                case Country.Iran:
+                    return "IR";
+                case Country.Portugal:
+                    return "PT";
+                case Country.Spain:
+                    return "ES";
+                case Country.Morocco:
+                    return "MA";
+
+                case Country.Peru:
+                    return "PE";
+                case Country.Denmark:
+                    return "DK";
+                case Country.France:
+                    return "FR";
+                case Country.Australia:
+                    return "AU";
+
+                case Country.Argentina:
+                    return "AR";
+                case Country.Iceland:
+                    return "IS";
+                case Country.Croatia:
+                    return "HR";
+                case Country.Nigeria:
+                    return "NG";
+
+                case Country.Serbia:
+                    return "RS";
+                case Country.Brazil:
+                    return "BR";
+                case Country.Switzerland:
+                    return "CH";
+                case Country.CostaRica:
+                    return "CR";
+
+                case Country.Mexico:
+                    return "MX";
+                case Country.Germany:
+                    return "DE";
+                case Country.Sweden:
+                    return "SE";
+                case Country.KoreaRepublic:
+                    return "KR";
+
+                case Country.Tunisia:
+                    return "TN";
+                case Country.Panama:
+                    return "PA";
+                case Country.Belgium:
+                    return "BE";
+                case Country.England:
+                    return "GB";
+
+                case Country.Japan:
+                    return "JP";
+                case Country.Poland:
+                    return "PL";
+                case Country.Colombia:
+                    return "CO";
+                case Country.Senegal:
+                    return "SN";
                 default:
                     return country.ToString().ToLower();
             }
